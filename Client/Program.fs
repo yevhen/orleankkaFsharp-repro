@@ -13,7 +13,7 @@ open Orleankka.Client
 open Orleankka.FSharp
 
 let doClientWork (system:IActorSystem) = task {
-  let greeter = ActorSystem.typedActorOf(system,"greeter")
+  let greeter = ActorSystem.typedActorOf<IHello, HelloMessages>(system,"greeter")
   let! hi = greeter <? Hi
   let! hello = greeter <? Hello "Roman"
   do! greeter <! Bue
@@ -28,8 +28,7 @@ let runMainAsync () = task {
      .Configure(fun (x:ClusterOptions) -> x.ClusterId <- "dev";x.ServiceId <- "OrleansBasic" )
      .ConfigureLogging(fun (logging:ILoggingBuilder) -> logging.AddConsole() |> ignore)
      .ConfigureApplicationParts(fun parts -> 
-        parts.AddApplicationPart(Assembly.GetExecutingAssembly()).WithReferences().WithCodeGeneration(codeGenLoggerFactory)
-         .AddApplicationPart(typeof<IHello>.Assembly).WithReferences().WithCodeGeneration(codeGenLoggerFactory) |> ignore)
+        parts.AddApplicationPart(typeof<IHello>.Assembly).WithCodeGeneration(codeGenLoggerFactory) |> ignore)
      .UseOrleankka()
      .Build()
   do! client.Connect()

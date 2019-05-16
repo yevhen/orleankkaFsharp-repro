@@ -7,8 +7,10 @@ open Microsoft.Extensions.Logging
 open FSharp.Control.Tasks.V2
 module Say =
 
-  type HelloGrain (log:ILogger) =
+  type HelloGrain (loggerFactory:ILoggerFactory) =
     inherit ActorGrain()
+    let log = loggerFactory.CreateLogger(typeof<HelloGrain>)
+        
     interface IHello
     override this.Receive(msg) = task {
       match msg with

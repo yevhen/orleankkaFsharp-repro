@@ -5,6 +5,7 @@ open Orleans
 open Orleans.Configuration
 open Orleans.Hosting
 open Orleankka.Cluster
+open Contracts.Say
 open Grains.Say
 let getSilo () = task {
   use codeGenLoggerFactory = new LoggerFactory();
@@ -13,8 +14,8 @@ let getSilo () = task {
       .UseLocalhostClustering()
       .Configure(fun (x:ClusterOptions) -> x.ClusterId <- "dev" ; x.ServiceId <- "OrleansBasic")
       .ConfigureApplicationParts(fun parts -> 
-        parts.AddApplicationPart(typeof<HelloGrain>.Assembly).WithReferences().WithCodeGeneration(codeGenLoggerFactory)
-          |> ignore)
+        parts.AddApplicationPart(typeof<IHello>.Assembly).WithCodeGeneration(codeGenLoggerFactory)
+             .AddApplicationPart(typeof<HelloGrain>.Assembly).WithCodeGeneration(codeGenLoggerFactory) |> ignore)
       .ConfigureLogging(fun (logging:ILoggingBuilder) -> logging.AddConsole() |> ignore)
       .UseOrleankka()
       .Build()

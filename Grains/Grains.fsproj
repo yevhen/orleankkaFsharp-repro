@@ -10,10 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FSharp.Core" Version="4.6.1"/>
-    <PackageReference Include="Orleankka" Version="2.3.1" />
-    <PackageReference Include="Orleankka.Fsharp" Version="2.3.1" />
-    <PackageReference Include="Orleankka.FSharp.Runtime" Version="2.3.1" />
+    <PackageReference Include="FSharp.Core" Version="4.6.2"/>
+    <PackageReference Include="Orleankka.FSharp.Runtime" Version="2.3.4" />
     <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
   </ItemGroup>
 

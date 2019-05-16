@@ -1,4 +1,4 @@
-module BuggerContracts
+module BuggerGrains
 
 /// Need to explicitly reference smth from Orleans
 /// as F# linker is being too agressive and removes reference 
